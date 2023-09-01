@@ -1,0 +1,9 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'kdramadatabase/bootstrap.min.css' %}">
+
+{% if drama %}
+
+    <h1>{{ drama.name_eng }}</h1>
+
+{% endif %}

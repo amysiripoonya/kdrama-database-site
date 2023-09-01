@@ -1,0 +1,42 @@
+{% load i18n %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'kdramadatabase/bootstrap.min.css' %}">
+
+<h1>Amy's K-Drama Database</h1>
+
+{% if drama_list %}
+<div class="container">
+    <p class="sortable-links">
+        <span class="sortable-label">{% trans 'Sort by' %}: </span>
+        {% for sort_link in sort_link_list %}
+            <span class="sort-link {{ sort_link.attrs }}">
+                <a class="btn btn-primary btn-small btn-sm" href="{{ sort_link.path }}">
+                    <span class="{{ sort_link.indicator }}">
+                            {{ sort_link.title }}
+                            {% if sort_link.indicator == 'sort-asc' %}▲{% endif %}
+                            {% if sort_link.indicator == 'sort-desc' %}▼{% endif %}
+                    </span>
+                </a>
+            </span>
+        {% endfor %}
+    </p>
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>Korean Title</th>
+            <th>Rating</th>
+        </tr>
+    {% for drama in drama_list %}
+
+        <tr>
+           <td><a href="{% url 'kdramadatabase:detail' drama.id %}">{{ drama.name_eng }}</a></td>
+           <td>{{ drama.name_kor }}</td>
+            <td>{{ drama.rating }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+{% else %}
+    <p>No dramas are available.</p>
+{% endif %}
